@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" id="mainHtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SolarVolt Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #0f172a;
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --accent: #f59e0b;
+            --blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 14px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        html[lang="ur"] body {
+            font-family: 'Noto Nastaliq Urdu', 'Segoe UI', sans-serif;
+            line-height: 1.9;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            max-width: 560px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .lang-select {
+            background: var(--bg-input);
+            color: var(--text-main);
+            border: 1.5px solid var(--primary);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-section h1 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 18px 0 12px 0;
+            padding: 6px 12px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+        }
+
+        .section-header.blue-head {
+            color: var(--blue);
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        input[type="number"], select.form-control {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            direction: ltr;
+            text-align: right;
+            transition: border-color 0.2s;
+        }
+
+        html[dir="ltr"] input[type="number"], 
+        html[dir="ltr"] select.form-control {
+            text-align: left;
+        }
+
+        input[type="number"]:focus, select.form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .hint {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .slider-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-input);
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            direction: ltr;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary);
+            cursor: pointer;
+            height: 6px;
+        }
+
+        .slider-val {
+            width: 65px !important;
+            padding: 6px !important;
+            text-align: center !important;
+            font-weight: bold;
+        }
+
+        .mode-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mode-btn {
+            background: var(--bg-input);
+            border: 1.5px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 6px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-calc {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+            transition: transform 0.15s;
+        }
+
+        .btn-calc:active {
+            transform: scale(0.98);
+        }
+
+        .results-card {
+            margin-top: 20px;
+            background: var(--bg-input);
+            border: 1.5px solid var(--primary);
+            border-radius: 14px;
+            padding: 18px;
+            display: block;
+        }
+
+        .res-block {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .res-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .res-title {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .res-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            margin-bottom: 6px;
+        }
+
+        .badge-green {
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            direction: ltr;
+        }
+
+        .badge-orange {
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            direction: ltr;
+        }
+
+        .badge-blue {
+            color: var(--blue);
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            direction: ltr;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+    <div class="top-bar">
+        <span class="brand-badge">SolarVolt Pro</span>
+        <select class="lang-select" id="langSelector">
+            <option value="ur" selected>🇵🇰 اردو (Urdu)</option>
+            <option value="en">🌍 English</option>
+            <option value="ar">🇸🇦 العربية (Arabic)</option>
+            <option value="es">🇪🇸 Español (Spanish)</option>
+            <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+        </select>
+    </div>
+
+    <div class="header-section">
+        <img src="data:image/jpeg;base64,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" alt="SolarVolt" width="65" height="65" style="display: block; width: 65px; height: 65px; border-radius: 16px; border: 2px solid #10b981; box-shadow: 0 4px 14px rgba(16,185,129,0.35); object-fit: cover; margin: 0 auto 10px;">
+        <h1 id="t_title">سولر، ڈی سی اور انورٹر کیلکولیٹر</h1>
+        <p id="t_subtitle">سولر پیداوار، DC لوڈ اور UPS/Inverter (AC) بیک اپ کا مکمل حساب</p>
+        <button type="button" id="btnWeather" style="margin-top: 12px; background: rgba(59, 130, 246, 0.12); border: 1.5px solid var(--blue); color: var(--blue); padding: 9px 18px; border-radius: 10px; font-size: 0.88rem; font-weight: 700; cursor: pointer; font-family: inherit;">📍 آٹو موسم اور ٹمپریچر</button>
+        <div id="weatherInfo" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; min-height: 1.2em; direction: ltr;"></div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+            <label id="t_manualTemp" for="manualTemp" style="display: inline; margin: 0; font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">اپنا ٹمپریچر (°C):</label>
+            <input type="number" id="manualTemp" placeholder="25" min="-10" max="60" style="width: 80px; padding: 6px 8px; background: var(--bg-input); border: 1.5px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; direction: ltr; text-align: center;">
+        </div>
+    </div>
+
+    <div class="section-header" id="t_sec1">☀️ 1. سولر پینلز اور بیٹری بینک</div>
+    
+    <div class="grid-2">
+        <div>
+            <label id="t_panelWatt">پینل کی طاقت (واٹ):</label>
+            <select class="form-control" id="panelType">
+                <option value="585" selected>585 W</option>
+                <option value="600">600 W</option>
+                <option value="700">700 W</option>
+                <option value="550">550 W</option>
+                <option value="300">300 W</option>
+                <option value="custom" id="t_customOpt">Custom Watts</option>
+            </select>
+        </div>
+        <div>
+            <label id="t_panelQty">پینلز کی تعداد:</label>
+            <input type="number" id="panelQty" value="4" min="1">
+        </div>
+    </div>
+
+    <div class="form-group" id="customWattDiv" style="display: none;">
+        <label id="t_enterCustom">پینل کے واٹ درج کریں:</label>
+        <input type="number" id="customWatt" value="450" min="1">
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <label id="t_sysVolt">سسٹم وولٹیج:</label>
+            <select class="form-control" id="sysVoltage">
+                <option value="12" selected>12V (1 Battery)</option>
+                <option value="24">24V (2 Batteries)</option>
+                <option value="48">48V (4 Batteries)</option>
+            </select>
+        </div>
+        <div>
+            <label id="t_batterySize">بیٹری سائز (Ah):</label>
+            <select class="form-control" id="batteryAh">
+                <option value="0" id="t_noBat">No Battery</option>
+                <option value="100">100 Ah</option>
+                <option value="150">150 Ah</option>
+                <option value="200" selected>200 Ah</option>
+                <option value="250">250 Ah</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <label id="t_sunHours">اوسط دھوپ (گھنٹے):</label>
+            <input type="number" id="sunHours" value="5.5" step="0.5" min="1" max="15">
+        </div>
+        <div>
+            <label id="t_efficiency">سولر کارکردگی (%):</label>
+            <div class="slider-box">
+                <input type="range" id="effSlider" min="50" max="95" value="75">
+                <input type="number" class="slider-val" id="effInput" min="50" max="95" value="75">
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header blue-head" id="t_secMode">🔌 2. لوڈ کی قسم منتخب کریں</div>
+    <div class="mode-tabs">
+        <button type="button" class="mode-btn" data-mode="dc" id="btnModeDC">صرف DC لوڈ</button>
+        <button type="button" class="mode-btn" data-mode="ac" id="btnModeAC">UPS / Inverter (AC)</button>
+        <button type="button" class="mode-btn active" data-mode="both" id="btnModeBoth">دونوں (DC + AC)</button>
+    </div>
+
+    <div id="dcSection">
+        <div class="section-header" id="t_sec2">⚡ ڈائریکٹ ڈی سی (12V DC) لوڈ</div>
+        <div class="grid-2">
+            <div>
+                <label id="t_dcFans">ڈی سی پنکھے (تعداد):</label>
+                <input type="number" id="dcFans" value="2" min="0">
+                <span class="hint" id="t_fanHint">فی پنکھا 35 واٹ</span>
+            </div>
+            <div>
+                <label id="t_dcLights">ڈی سی لائٹس (تعداد):</label>
+                <input type="number" id="dcLights" value="4" min="0">
+                <span class="hint" id="t_lightHint">فی لائٹ 12 واٹ</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="acSection">
+        <div class="section-header blue-head" id="t_sec3">🏠 UPS / Inverter (220V AC) لوڈ</div>
+        <div class="grid-2">
+            <div>
+                <label id="t_acFans">AC پنکھے (تعداد):</label>
+                <input type="number" id="acFans" value="2" min="0">
+                <span class="hint" id="t_acFanHint">فی پنکھا 80 واٹ</span>
+            </div>
+            <div>
+                <label id="t_acInvFans">AC/DC انورٹر پنکھے (تعداد):</label>
+                <input type="number" id="acInvFans" value="0" min="0">
+                <span class="hint" id="t_acInvFanHint">فی پنکھا 35 واٹ</span>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div>
+                <label id="t_acFridge">فریج / ریفریجریٹر:</label>
+                <select class="form-control" id="acFridge">
+                    <option value="0" id="t_noFridge">نہیں ہے (0 W)</option>
+                    <option value="150" selected>Inverter Fridge (150 W)</option>
+                    <option value="250">Normal Fridge (250 W)</option>
+                </select>
+            </div>
+            <div>
+                <label id="t_acInverterAC">انورٹر AC (تعداد):</label>
+                <select class="form-control" id="acUnit">
+                    <option value="0" selected id="t_noAC">نہیں ہے (0 W)</option>
+                    <option value="900">1 Ton Inverter AC (~900 W)</option>
+                    <option value="1300">1.5 Ton Inverter AC (~1300 W)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="t_acExtra">دیگر AC لوڈ (ٹی وی/لائٹس W):</label>
+            <input type="number" id="acExtraWatts" value="100" min="0" step="10">
+            <span class="hint" id="t_acLossHint">+12% انورٹر کنورژن لاس شامل ہوگا</span>
+        </div>
+    </div>
+
+    <button class="btn-calc" id="t_btnCalc">مکمل حساب لگائیں</button>
+
+    <div class="results-card" id="resultsBox">
+        <div class="res-block">
+            <div class="res-title" id="t_resProdTitle">📊 سولر سسٹم کی پیداوار</div>
+            <div class="res-row"><span id="t_resCap">کل سولر سسٹم:</span> <span class="badge-green" id="outCap">0 W</span></div>
+            <div class="res-row"><span id="t_resDaily">روزانہ بجلی (Units):</span> <span class="badge-green" id="outDaily">0 kWh</span></div>
+            <div class="res-row"><span id="t_resMonthly">ماہانہ بجلی (Units):</span> <span class="badge-green" id="outMonthly">0 kWh</span></div>
+        </div>
+
+        <div class="res-block">
+            <div class="res-title" id="t_resLoadTitle">🔋 لوڈ اور بیٹری بیک اپ کا تجزیہ</div>
+            <div class="res-row" id="rowDCLoad"><span id="t_resDCLoad">ڈائریکٹ DC لوڈ:</span> <span class="badge-orange" id="outDCLoad">0 W</span></div>
+            <div class="res-row" id="rowACLoad"><span id="t_resACLoad">AC لوڈ (انورٹر لاس سمیت):</span> <span class="badge-blue" id="outACLoad">0 W</span></div>
+            <div class="res-row"><span id="t_resTotalLoad">مجموعی لوڈ (بیٹری پر بوجھ):</span> <span class="badge-orange" id="outTotalLoad">0 W</span></div>
+            <div class="res-row"><span id="t_resBackup">متوقع بیٹری بیک اپ ٹائم:</span> <span class="badge-green" id="outBackup">0 hrs</span></div>
+            <div style="margin-top: 10px; font-size: 0.85rem; line-height: 1.6;" id="outStatus"></div>
+        </div>
+    </div>
+<!-- Silkyline Studio Footer -->
+<div style="text-align: center; margin-top: 22px; padding-top: 14px; border-top: 1px solid #334155; font-size: 0.8rem; color: #94a3b8; font-family: 'Plus Jakarta Sans', sans-serif; direction: ltr;">
+    Crafted with ⚡ by <strong style="color: #10b981; letter-spacing: 0.5px;">Silkyline Studio</strong>
+</div>
+</div><script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const translations = {
+            ur: {
+                dir: "rtl",
+                title: "سولر، ڈی سی اور انورٹر کیلکولیٹر",
+                subtitle: "سولر پیداوار، DC لوڈ اور UPS/Inverter (AC) بیک اپ کا مکمل حساب",
+                sec1: "☀️ 1. سولر پینلز اور بیٹری بینک",
+                panelWatt: "پینل کی طاقت (واٹ):",
+                customOpt: "اپنی مرضی کے واٹ",
+                panelQty: "پینلز کی تعداد:",
+                enterCustom: "پینل کے واٹ درج کریں:",
+                sysVolt: "سسٹم وولٹیج:",
+                batterySize: "بیٹری سائز (Ah):",
+                noBat: "بیٹری نہیں ہے",
+                sunHours: "اوسط دھوپ (گھنٹے):",
+                efficiency: "سولر کارکردگی (%):",
+                secMode: "🔌 2. لوڈ کی قسم منتخب کریں",
+                btnModeDC: "صرف DC لوڈ",
+                btnModeAC: "UPS / Inverter (AC)",
+                btnModeBoth: "دونوں (DC + AC)",
+                sec2: "⚡ ڈائریکٹ ڈی سی (12V DC) لوڈ",
+                dcFans: "ڈی سی پنکھے (تعداد):",
+                fanHint: "فی پنکھا 35 واٹ",
+                dcLights: "ڈی سی لائٹس (تعداد):",
+                lightHint: "فی لائٹ 12 واٹ",
+                sec3: "🏠 UPS / Inverter (220V AC) لوڈ",
+                acFans: "AC پنکھے (تعداد):",
+                acFanHint: "فی پنکھا 80 واٹ",
+                acInvFans: "AC/DC انورٹر پنکھے (تعداد):",
+                acInvFanHint: "فی پنکھا 35 واٹ",
+                acFridge: "فریج / ریفریجریٹر:",
+                noFridge: "نہیں ہے (0 W)",
+                acInverterAC: "انورٹر AC (تعداد):",
+                noAC: "نہیں ہے (0 W)",
+                acExtra: "دیگر AC لوڈ (ٹی وی/لائٹس W):",
+                acLossHint: "+12% انورٹر کنورژن لاس شامل ہوگا",
+                btnCalc: "مکمل حساب لگائیں",
+                resProdTitle: "📊 سولر سسٹم کی پیداوار",
+                resCap: "کل سولر سسٹم:",
+                resDaily: "روزانہ بجلی (Units):",
+                resMonthly: "ماہانہ بجلی (Units):",
+                resLoadTitle: "🔋 لوڈ اور بیٹری بیک اپ کا تجزیہ",
+                resDCLoad: "ڈائریکٹ DC لوڈ:",
+                resACLoad: "AC لوڈ (انورٹر لاس سمیت):",
+                resTotalLoad: "مجموعی لوڈ (بیٹری پر بوجھ):",
+                resBackup: "متوقع بیٹری بیک اپ ٹائم:",
+                statusGood: "✅ بہترین! دن میں سولر پر پورا لوڈ چلے گا اور بیٹریاں بھی چارج ہوں گی۔",
+                statusLow: "⚠️ لوڈ سولر کی پیداوار سے زیادہ ہے، دن میں بھی بیٹری یا واپڈا سے مدد لینی پڑے گی۔",
+                statusNoLoad: "ℹ️ کوئی لوڈ درج نہیں کیا گیا۔",
+                noBatText: "بیٹری منتخب نہیں",
+                hrsText: "گھنٹے",
+                minsText: "منٹ",
+                btnWeather: "📍 آٹو موسم اور ٹمپریچر",
+                weatherTemp: "موجودہ درجہ حرارت",
+                heatLoss: "گرمی کا نقصان",
+                weatherLoading: "لوکیشن لی جا رہی ہے...",
+                weatherError: "لوکیشن نہیں ملی — ڈیفالٹ 25°C استعمال ہوگا",
+                manualTemp: "اپنا ٹمپریچر (°C):"
+            },
+            en: {
+                dir: "ltr",
+                title: "Solar, DC & Inverter Calculator",
+                subtitle: "Complete calculation for Solar Generation, DC Load & UPS/AC Backup",
+                sec1: "☀️ 1. Solar Panels & Battery Bank",
+                panelWatt: "Panel Wattage (W):",
+                customOpt: "Custom Watts",
+                panelQty: "Number of Panels:",
+                enterCustom: "Enter Custom Watts:",
+                sysVolt: "System Voltage:",
+                batterySize: "Battery Size (Ah):",
+                noBat: "No Battery",
+                sunHours: "Peak Sun Hours:",
+                efficiency: "Solar Efficiency (%):",
+                secMode: "🔌 2. Select Load Mode",
+                btnModeDC: "DC Load Only",
+                btnModeAC: "UPS / Inverter (AC)",
+                btnModeBoth: "Both (DC + AC)",
+                sec2: "⚡ Direct DC (12V) Load",
+                dcFans: "DC Fans (Qty):",
+                fanHint: "35W per fan",
+                dcLights: "DC Lights (Qty):",
+                lightHint: "12W per light",
+                sec3: "🏠 UPS / Inverter (220V AC) Load",
+                acFans: "AC Fans (Qty):",
+                acFanHint: "80W per fan",
+                acInvFans: "AC/DC Inverter Fans (Qty):",
+                acInvFanHint: "35W per fan",
+                acFridge: "Refrigerator / Fridge:",
+                noFridge: "None (0 W)",
+                acInverterAC: "Inverter Air Conditioner:",
+                noAC: "None (0 W)",
+                acExtra: "Other AC Load (TV/Lights W):",
+                acLossHint: "Includes +12% inverter conversion loss",
+                btnCalc: "Calculate Everything",
+                resProdTitle: "📊 Solar System Generation",
+                resCap: "Total Solar Capacity:",
+                resDaily: "Daily Energy (Units):",
+                resMonthly: "Monthly Energy (Units):",
+                resLoadTitle: "🔋 Load & Battery Backup Analysis",
+                resDCLoad: "Direct DC Load:",
+                resACLoad: "AC Load (with Inverter Loss):",
+                resTotalLoad: "Total Effective Load:",
+                resBackup: "Estimated Battery Backup:",
+                statusGood: "✅ Great! Solar will easily run this load and charge batteries during the day.",
+                statusLow: "⚠️ Load exceeds solar output; batteries or grid will assist during daytime.",
+                statusNoLoad: "ℹ️ No load entered.",
+                noBatText: "No battery selected",
+                hrsText: "hrs",
+                minsText: "mins",
+                btnWeather: "📍 Auto Weather & Temp",
+                weatherTemp: "Current Temp",
+                heatLoss: "Heat Loss",
+                weatherLoading: "Getting location...",
+                weatherError: "Location unavailable — default 25°C will be used",
+                manualTemp: "Manual Temp (°C):"
+            },
+            ar: {
+                dir: "rtl",
+                title: "حاسبة الطاقة الشمسية والإنفرتر",
+                subtitle: "حساب شامل لإنتاج الطاقة الشمسية وأحمال DC و AC ووقت البطارية",
+                sec1: "☀️ 1. الألواح الشمسية وبنك البطاريات",
+                panelWatt: "قدرة اللوح (واط):",
+                customOpt: "واط مخصص",
+                panelQty: "عدد الألواح:",
+                enterCustom: "أدخل قدرة اللوح:",
+                sysVolt: "جهد النظام:",
+                batterySize: "سعة البطارية (Ah):",
+                noBat: "بدون بطارية",
+                sunHours: "ساعات الذروة الشمسية:",
+                efficiency: "كفاءة النظام (%):",
+                secMode: "🔌 2. اختر نوع الأحمال",
+                btnModeDC: "أحمال DC فقط",
+                btnModeAC: "إنفرتر / UPS (AC)",
+                btnModeBoth: "كلاهما (DC + AC)",
+                sec2: "⚡ أحمال التيار المستمر (DC)",
+                dcFans: "مراوح DC (العدد):",
+                fanHint: "35 واط لكل مروحة",
+                dcLights: "إضاءة DC (العدد):",
+                lightHint: "12 واط لكل مصباح",
+                sec3: "🏠 أحمال الإنفرتر (220V AC)",
+                acFans: "مراوح AC (العدد):",
+                acFanHint: "80 واط لكل مروحة",
+                acInvFans: "مراوح إنفرتر AC/DC (العدد):",
+                acInvFanHint: "35 واط لكل مروحة",
+                acFridge: "ثلاجة:",
+                noFridge: "لا يوجد (0 W)",
+                acInverterAC: "مكيف إنفرتر:",
+                noAC: "لا يوجد (0 W)",
+                acExtra: "أحمال AC أخرى (تلفاز/إضاءة):",
+                acLossHint: "يشمل +12% فاقد تحويل الإنفرتر",
+                btnCalc: "احسب الآن",
+                resProdTitle: "📊 إنتاج الطاقة الشمسية",
+                resCap: "إجمالي قدرة النظام:",
+                resDaily: "الإنتاج اليومي:",
+                resMonthly: "الإنتاج الشهري:",
+                resLoadTitle: "🔋 تحليل الأحمال والبطارية",
+                resDCLoad: "أحمال DC المباشرة:",
+                resACLoad: "أحمال AC (مع فاقد الإنفرتر):",
+                resTotalLoad: "إجمالي الحمل الفعلي:",
+                resBackup: "وقت تشغيل البطارية المتوقع:",
+                statusGood: "✅ ممتاز! الطاقة الشمسية تكفي لتشغيل الأحمال وشحن البطاريات نهاراً.",
+                statusLow: "⚠️ الحمل أعلى من إنتاج الطاقة الشمسية، ستساعد البطاريات نهاراً.",
+                statusNoLoad: "ℹ️ لم يتم إدخال أي أحمال.",
+                noBatText: "لم يتم اختيار بطارية",
+                hrsText: "ساعة",
+                minsText: "دقيقة",
+                btnWeather: "📍 الطقس ودرجة الحرارة التلقائية",
+                weatherTemp: "درجة الحرارة الحالية",
+                heatLoss: "فقدان الحرارة",
+                weatherLoading: "جارٍ الحصول على الموقع...",
+                weatherError: "الموقع غير متاح — سيتم استخدام 25°C الافتراضي",
+                manualTemp: "درجة حرارة يدوية (°C):"
+            },
+            es: {
+                dir: "ltr",
+                title: "Calculadora Solar, DC e Inversor",
+                subtitle: "Cálculo completo de generación solar y respaldo DC / AC",
+                sec1: "☀️ 1. Paneles Solares y Baterías",
+                panelWatt: "Potencia del Panel (W):",
+                customOpt: "Vatios Personalizados",
+                panelQty: "Cantidad de Paneles:",
+                enterCustom: "Ingrese Vatios:",
+                sunHours: "Horas Pico de Sol:",
+                efficiency: "Eficiencia Solar (%):",
+                secMode: "🔌 2. Seleccionar Tipo de Carga",
+                btnModeDC: "Solo Carga DC",
+                btnModeAC: "Inversor / UPS (AC)",
+                btnModeBoth: "Ambos (DC + AC)",
+                sec2: "⚡ Carga Directa DC (12V)",
+                dcFans: "Ventiladores DC:",
+                fanHint: "35W por ventilador",
+                dcLights: "Luces DC:",
+                lightHint: "12W por luz",
+                sec3: "🏠 Carga Inversor / UPS (AC)",
+                acFans: "Ventiladores AC:",
+                acFanHint: "80W por ventilador",
+                acInvFans: "Ventiladores Inverter AC/DC:",
+                acInvFanHint: "35W por ventilador",
+                acFridge: "Refrigerador:",
+                noFridge: "Ninguno (0 W)",
+                acInverterAC: "Aire Acondicionado Inverter:",
+                noAC: "Ninguno (0 W)",
+                acExtra: "Otras Cargas AC (TV/Luces W):",
+                acLossHint: "Incluye +12% pérdida del inversor",
+                btnCalc: "Calcular Todo",
+                resProdTitle: "📊 Generación Solar",
+                resCap: "Capacidad Total:",
+                resDaily: "Energía Diaria:",
+                resMonthly: "Energía Mensual:",
+                resLoadTitle: "🔋 Análisis de Carga y Respaldo",
+                resDCLoad: "Carga Directa DC:",
+                resACLoad: "Carga AC (con pérdida inversor):",
+                resTotalLoad: "Carga Total Efectiva:",
+                resBackup: "Respaldo Estimado de Batería:",
+                statusGood: "✅ ¡Excelente! El sol cubrirá la carga y cargará las baterías de día.",
+                statusLow: "⚠️ La carga supera la energía solar; las baterías asistirán de día.",
+                statusNoLoad: "ℹ️ No se ingresó carga.",
+                noBatText: "Sin batería",
+                hrsText: "hrs",
+                minsText: "min",
+                btnWeather: "📍 Clima y Temperatura Automáticos",
+                weatherTemp: "Temperatura Actual",
+                heatLoss: "Pérdida por Calor",
+                weatherLoading: "Obteniendo ubicación...",
+                weatherError: "Ubicación no disponible — se usará 25°C por defecto",
+                manualTemp: "Temp. Manual (°C):"
+            },
+            hi: {
+                dir: "ltr",
+                title: "सोलर, डीसी और इन्वर्टर कैलकुलेटर",
+                subtitle: "सोलर उत्पादन, DC लोड और UPS/Inverter (AC) बैकअप की पूरी गणना",
+                sec1: "☀️ 1. सोलर पैनल और बैटरी बैंक",
+                panelWatt: "पैनल क्षमता (वाट):",
+                customOpt: "कस्टम वाट",
+                panelQty: "पैनलों की संख्या:",
+                enterCustom: "वाट दर्ज करें:",
+                sysVolt: "सिस्टम वोल्टेज:",
+                batterySize: "बैटरी साइज (Ah):",
+                noBat: "बैटरी नहीं है",
+                sunHours: "औसत धूप (घंटे):",
+                efficiency: "सोलर दक्षता (%):",
+                secMode: "🔌 2. लोड का प्रकार चुनें",
+                btnModeDC: "केवल DC लोड",
+                btnModeAC: "UPS / Inverter (AC)",
+                btnModeBoth: "दोनों (DC + AC)",
+                sec2: "⚡ डायरेक्ट डीसी (12V DC) लोड",
+                dcFans: "डीसी पंखे (संख्या):",
+                fanHint: "35 वाट प्रति पंखा",
+                dcLights: "डीसी लाइट्स (संख्या):",
+                lightHint: "12 वाट प्रति लाइट",
+                sec3: "🏠 UPS / Inverter (220V AC) लोड",
+                acFans: "AC पंखे (संख्या):",
+                acFanHint: "80 वाट प्रति पंखा",
+                acInvFans: "AC/DC इन्वर्टर पंखे (संख्या):",
+                acInvFanHint: "35 वाट प्रति पंखा",
+                acFridge: "फ्रिज / रेफ्रिजरेटर:",
+                noFridge: "नहीं है (0 W)",
+                acInverterAC: "इन्वर्टर AC:",
+                noAC: "नहीं है (0 W)",
+                acExtra: "अन्य AC लोड (टीवी/लाइट्स W):",
+                acLossHint: "+12% इन्वर्टर कन्वर्जन लॉस शामिल होगा",
+                btnCalc: "पूरी गणना करें",
+                resProdTitle: "📊 सोलर सिस्टम उत्पादन",
+                resCap: "कुल सोलर क्षमता:",
+                resDaily: "दैनिक बिजली (Units):",
+                resMonthly: "मासिक बिजली (Units):",
+                resLoadTitle: "🔋 लोड और बैटरी बैकअप विश्लेषण",
+                resDCLoad: "डायरेक्ट DC लोड:",
+                resACLoad: "AC लोड (इन्वर्टर लॉस सहित):",
+                resTotalLoad: "कुल प्रभावी लोड:",
+                resBackup: "अनुमानित बैटरी बैकअप:",
+                statusGood: "✅ बढ़िया! दिन में सोलर पर पूरा लोड चलेगा और बैटरियां भी चार्ज होंगी।",
+                statusLow: "⚠️ लोड सोलर उत्पादन से अधिक है, दिन में बैटरी या ग्रिड की मदद लगेगी।",
+                statusNoLoad: "ℹ️ कोई लोड दर्ज नहीं किया गया।",
+                noBatText: "बैटरी नहीं चुनी गई",
+                hrsText: "घंटे",
+                minsText: "मिनट",
+                btnWeather: "📍 ऑटो मौसम और तापमान",
+                weatherTemp: "मौजूदा तापमान",
+                heatLoss: "गर्मी का नुकसान",
+                weatherLoading: "स्थान लिया जा रहा है...",
+                weatherError: "स्थान उपलब्ध नहीं — डिफ़ॉल्ट 25°C इस्तेमाल होगा",
+                manualTemp: "मैन्युअल तापमान (°C):"
+            }
+        };
+
+        let currentMode = "both";
+        let liveTemp = 25;
+        let heatLossPct = 0;
+        let hasLiveTemp = false;
+        let liveCity = '';
+
+        const langSelector = document.getElementById('langSelector');
+        const panelType = document.getElementById('panelType');
+        const customWattDiv = document.getElementById('customWattDiv');
+        const customWattInput = document.getElementById('customWatt');
+        const panelQtyInput = document.getElementById('panelQty');
+        const sysVoltageSelect = document.getElementById('sysVoltage');
+        const batteryAhSelect = document.getElementById('batteryAh');
+        const sunHoursInput = document.getElementById('sunHours');
+        const effSlider = document.getElementById('effSlider');
+        const effInput = document.getElementById('effInput');
+
+        const dcFansInput = document.getElementById('dcFans');
+        const dcLightsInput = document.getElementById('dcLights');
+        const acFansInput = document.getElementById('acFans');
+        const acInvFansInput = document.getElementById('acInvFans');
+        const acFridgeSelect = document.getElementById('acFridge');
+        const acUnitSelect = document.getElementById('acUnit');
+        const acExtraWattsInput = document.getElementById('acExtraWatts');
+
+        const dcSection = document.getElementById('dcSection');
+        const acSection = document.getElementById('acSection');
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const btnCalc = document.getElementById('t_btnCalc');
+        const btnWeather = document.getElementById('btnWeather');
+        const weatherInfo = document.getElementById('weatherInfo');
+        const manualTempInput = document.getElementById('manualTemp');
+
+        function setLoadMode(mode) {
+            currentMode = mode;
+            modeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-mode') === mode);
+            });
+
+            if (mode === 'dc') {
+                dcSection.style.display = 'block';
+                acSection.style.display = 'none';
+                document.getElementById('rowDCLoad').style.display = 'flex';
+                document.getElementById('rowACLoad').style.display = 'none';
+            } else if (mode === 'ac') {
+                dcSection.style.display = 'none';
+                acSection.style.display = 'block';
+                document.getElementById('rowDCLoad').style.display = 'none';
+                document.getElementById('rowACLoad').style.display = 'flex';
+            } else {
+                dcSection.style.display = 'block';
+                acSection.style.display = 'block';
+                document.getElementById('rowDCLoad').style.display = 'flex';
+                document.getElementById('rowACLoad').style.display = 'flex';
+            }
+            calculateAll();
+        }
+
+        function updateWeatherInfo() {
+            const t = translations[langSelector.value];
+            if (!hasLiveTemp) {
+                weatherInfo.innerText = '';
+                return;
+            }
+            let msg = `🌡️ ${t.weatherTemp}: ${liveTemp}°C`;
+            if (heatLossPct > 0) {
+                msg += ` | ${t.heatLoss}: ${heatLossPct.toFixed(2)}%`;
+            }
+            if (liveCity) {
+                msg += ` | 📍 ${liveCity}`;
+            }
+            weatherInfo.innerText = msg;
+        }
+
+        function updateLanguage() {
+            const lang = langSelector.value;
+            const t = translations[lang];
+            const htmlTag = document.getElementById('mainHtml');
+
+            htmlTag.setAttribute('lang', lang);
+            htmlTag.setAttribute('dir', t.dir);
+
+            const ids = [
+                'title', 'subtitle', 'sec1', 'panelWatt', 'customOpt', 'panelQty',
+                'enterCustom', 'sysVolt', 'batterySize', 'noBat', 'sunHours', 'efficiency',
+                'secMode', 'sec2', 'dcFans', 'fanHint', 'dcLights', 'lightHint',
+                'sec3', 'acFans', 'acFanHint', 'acInvFans', 'acInvFanHint', 'acFridge', 'noFridge', 'acInverterAC',
+                'noAC', 'acExtra', 'acLossHint', 'btnCalc', 'resProdTitle', 'resCap',
+                'resDaily', 'resMonthly', 'resLoadTitle', 'resDCLoad', 'resACLoad',
+                'resTotalLoad', 'resBackup', 'manualTemp'
+            ];
+
+            ids.forEach(id => {
+                const el = document.getElementById('t_' + id);
+                if (el && t[id]) el.innerText = t[id];
+            });
+
+            document.getElementById('btnModeDC').innerText = t.btnModeDC;
+            document.getElementById('btnModeAC').innerText = t.btnModeAC;
+            document.getElementById('btnModeBoth').innerText = t.btnModeBoth;
+
+            btnWeather.innerText = t.btnWeather;
+            updateWeatherInfo();
+
+            calculateAll();
+        }
+
+        function calculateAll() {
+            const lang = langSelector.value;
+            const t = translations[lang];
+
+            let singleWatt = (panelType.value === 'custom') 
+                ? (parseFloat(customWattInput.value) || 0) 
+                : parseFloat(panelType.value);
+                
+            const qty = parseInt(panelQtyInput.value) || 0;
+            const sysVolt = parseFloat(sysVoltageSelect.value) || 12;
+            const batteryAh = parseFloat(batteryAhSelect.value) || 0;
+            const sunHours = parseFloat(sunHoursInput.value) || 0;
+            const effBase = parseFloat(effInput.value) || 75;
+            const eff = Math.max(0, effBase - heatLossPct) / 100;
+
+            const totalWatts = singleWatt * qty;
+            const realOutputWatts = totalWatts * eff;
+            const dailykWh = (realOutputWatts * sunHours) / 1000;
+            const monthlykWh = dailykWh * 30;
+
+            let dcLoadWatts = 0;
+            if (currentMode === 'dc' || currentMode === 'both') {
+                const fans = parseInt(dcFansInput.value) || 0;
+                const lights = parseInt(dcLightsInput.value) || 0;
+                dcLoadWatts = (fans * 35) + (lights * 12);
+            }
+
+            let acRawWatts = 0;
+            let acEffectiveWatts = 0;
+            if (currentMode === 'ac' || currentMode === 'both') {
+                const acFans = parseInt(acFansInput.value) || 0;
+                const acInvFans = parseInt(acInvFansInput.value) || 0;
+                const fridgeW = parseFloat(acFridgeSelect.value) || 0;
+                const acUnitW = parseFloat(acUnitSelect.value) || 0;
+                const extraW = parseFloat(acExtraWattsInput.value) || 0;
+
+                acRawWatts = (acFans * 80) + (acInvFans * 35) + fridgeW + acUnitW + extraW;
+                acEffectiveWatts = Math.round(acRawWatts * 1.12);
+            }
+
+            const totalEffectiveLoad = dcLoadWatts + acEffectiveWatts;
+
+            let statusMsg = "";
+            if (totalEffectiveLoad === 0) {
+                statusMsg = `<span style="color: var(--text-muted);">${t.statusNoLoad}</span>`;
+            } else if (realOutputWatts >= totalEffectiveLoad) {
+                statusMsg = `<span style="color: var(--primary); font-weight: 600;">${t.statusGood}</span>`;
+            } else {
+                statusMsg = `<span style="color: var(--accent); font-weight: 600;">${t.statusLow}</span>`;
+            }
+
+            let backupStr = "";
+            if (batteryAh === 0) {
+                backupStr = t.noBatText;
+            } else if (totalEffectiveLoad === 0) {
+                backupStr = "∞";
+            } else {
+                const usableWh = sysVolt * batteryAh * 0.50;
+                const totalHours = usableWh / totalEffectiveLoad;
+                const h = Math.floor(totalHours);
+                const m = Math.round((totalHours - h) * 60);
+                backupStr = `${h} ${t.hrsText} ${m} ${t.minsText}`;
+            }
+
+            document.getElementById('outCap').innerText = `${totalWatts} W (${(totalWatts/1000).toFixed(2)} kW)`;
+            document.getElementById('outDaily').innerText = `${dailykWh.toFixed(2)} kWh`;
+            document.getElementById('outMonthly').innerText = `${monthlykWh.toFixed(1)} kWh`;
+            
+            document.getElementById('outDCLoad').innerText = `${dcLoadWatts} W`;
+            document.getElementById('outACLoad').innerText = `${acEffectiveWatts} W (${acRawWatts}W + Loss)`;
+            document.getElementById('outTotalLoad').innerText = `${totalEffectiveLoad} W`;
+            document.getElementById('outBackup').innerText = backupStr;
+            document.getElementById('outStatus').innerHTML = statusMsg;
+        }
+
+        function fetchTemp(lat, lon, city) {
+            const t = translations[langSelector.value];
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data && data.current_weather && typeof data.current_weather.temperature === 'number') {
+                        liveTemp = data.current_weather.temperature;
+                        heatLossPct = liveTemp > 25 ? (liveTemp - 25) * 0.35 : 0;
+                        liveCity = city || '';
+                        hasLiveTemp = true;
+                        updateWeatherInfo();
+                        calculateAll();
+                    } else {
+                        weatherInfo.innerText = t.weatherError;
+                    }
+                })
+                .catch(function() {
+                    weatherInfo.innerText = t.weatherError;
+                });
+        }
+
+        function ipFallback() {
+            const t = translations[langSelector.value];
+            fetch('https://ipwho.is/')
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data && data.success && typeof data.latitude === 'number' && typeof data.longitude === 'number') {
+                        fetchTemp(data.latitude, data.longitude, data.city || '');
+                    } else {
+                        throw new Error('ipwho.is lookup failed');
+                    }
+                })
+                .catch(function() {
+                    fetch('https://ipapi.co/json/')
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            if (data && typeof data.latitude === 'number' && typeof data.longitude === 'number') {
+                                fetchTemp(data.latitude, data.longitude, data.city || '');
+                            } else {
+                                weatherInfo.innerText = t.weatherError;
+                            }
+                        })
+                        .catch(function() {
+                            weatherInfo.innerText = t.weatherError;
+                        });
+                });
+        }
+
+        btnWeather.addEventListener('click', function() {
+            const t = translations[langSelector.value];
+            weatherInfo.innerText = t.weatherLoading;
+            if (!navigator.geolocation) {
+                ipFallback();
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                fetchTemp(pos.coords.latitude, pos.coords.longitude, '');
+            }, function() {
+                ipFallback();
+            }, { timeout: 8000 });
+        });
+
+        manualTempInput.addEventListener('input', function() {
+            const val = parseFloat(this.value);
+            if (!isNaN(val)) {
+                liveTemp = val;
+                heatLossPct = liveTemp > 25 ? (liveTemp - 25) * 0.35 : 0;
+                liveCity = '';
+                hasLiveTemp = true;
+            } else {
+                liveTemp = 25;
+                heatLossPct = 0;
+                liveCity = '';
+                hasLiveTemp = false;
+            }
+            updateWeatherInfo();
+            calculateAll();
+        });
+
+        langSelector.addEventListener('change', updateLanguage);
+
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                setLoadMode(this.getAttribute('data-mode'));
+            });
+        });
+
+        panelType.addEventListener('change', function() {
+            customWattDiv.style.display = (this.value === 'custom') ? 'block' : 'none';
+            calculateAll();
+        });
+
+        effSlider.addEventListener('input', function() {
+            effInput.value = this.value;
+            calculateAll();
+        });
+
+        effInput.addEventListener('input', function() {
+            let val = parseInt(this.value);
+            if (val >= 50 && val <= 95) {
+                effSlider.value = val;
+            }
+            calculateAll();
+        });
+
+        const allInputs = [
+            customWattInput, panelQtyInput, sysVoltageSelect, batteryAhSelect,
+            sunHoursInput, dcFansInput, dcLightsInput, acFansInput, acInvFansInput,
+            acFridgeSelect, acUnitSelect, acExtraWattsInput
+        ];
+
+        allInputs.forEach(el => {
+            el.addEventListener('input', calculateAll);
+            el.addEventListener('change', calculateAll);
+        });
+
+        btnCalc.addEventListener('click', calculateAll);
+
+        updateLanguage();
+    });
+</script>
+
+</body>
+</html>
